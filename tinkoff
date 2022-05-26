@@ -1,0 +1,30 @@
+n, k = [int(i) for i in input().split()]
+nums = sorted(input().split(), key=len, reverse=True)
+nums2 = nums[:]
+
+x = 0
+lenn = max(map(len, nums2))
+nums_without9 = [i.replace('9', '') for i in nums]
+lenn_tot = sum(map(len, nums_without9))
+
+if k > lenn_tot:
+    k = lenn_tot
+
+
+def comp(nums):
+    if len(nums) >= lenn:
+        return nums[-lenn]
+    else:
+        return '99'
+while x < k:
+    for i in range(len(nums2)):
+        nums2.sort(key=comp)       
+        if nums2[0][-lenn] != '9':
+            nums2[0] = nums2[0].replace(nums2[0][-lenn], '9', 1)
+            x += 1            
+            if x == k:
+                break            
+    lenn -= 1
+
+print(sum(map(int, nums2)) - sum(map(int, nums)))    
+
